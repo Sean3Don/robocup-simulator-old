@@ -13,7 +13,6 @@ env = Environment(tools=['default', 'textfile'])
 # http://www.scons.org/wiki/GoFastButton
 env.Decider('MD5-timestamp')
 SetOption('max_drift', 1)
-#SetOption('implicit_cache', 1)
 env.SourceCode(".", None)
 
 # Keep a plain environment for cross-compiling later
@@ -23,11 +22,6 @@ Export('env_base')
 # C++ compiler
 env.MergeFlags('-Wall -g -Wno-unused-function -Wno-reorder -Wno-gnu -std=c++11')  # debug version - don't use for competition use
 
-# Newer compilers have deprecated the 'register' keyword
-# To suppress warnings about 'register' being used in some of our dependencies, we pass this flag
-# However, older compilers don't recognize this flag and give us warnings for trying to suppress non-existant warnings
-# we'll leave this commented out for now and add it back once we're all using a newer compiler
-# env.MergeFlags('-Wno-deprecated-register')
 
 # env.MergeFlags('-O2 -g3 -Wall -DNDEBUG') # optimized version
 env.Append(CPPPATH = [Dir('#/common'), Dir('/usr/include/eigen3')])
@@ -60,9 +54,6 @@ env.EnableQt4Modules(['QtCore', 'QtGui', 'QtNetwork', 'QtXml', 'QtOpenGL'])
 
 # All executables need to link with the common library, which depends on protobuf
 env.Append(LIBS=['common', 'protobuf', 'pthread', 'libGL'])
-
-# Make a new environment for code that must be 32-bit
-#env32 = env.Clone()
 
 # Search paths for native code
 env.Append(LIBPATH=[build_dir.Dir('common')])
