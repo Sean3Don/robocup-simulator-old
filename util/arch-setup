@@ -18,4 +18,3 @@ pacman -S --needed --noconfirm $(sed 's/#.*//;/^$/d' $BASE/util/arch-packages.tx
 # required for scons
 sudo pip2 install cffi pygit2
 
-pip install -r $BASE/util/requirements3.txt

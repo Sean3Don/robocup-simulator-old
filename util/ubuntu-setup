@@ -13,9 +13,6 @@ unset DPKG_FLAGS
 
 BASE=$(readlink -f $(dirname $0)/..)
 
-echo "-- Installing udev rules"
-cp -f $BASE/util/robocup.rules /etc/udev/rules.d/
-
 echo "-- Installing required packages"
 # install all of the packages listed in required_packages.txt
 apt-get install $(sed 's/#.*//;/^$/d' $BASE/util/ubuntu-packages.txt)
@@ -26,5 +23,3 @@ yes | easy_install GitPython
 # get pip the old way
 easy_install3 pip
 
-# install python3 requirements
-pip3 install -r $BASE/util/requirements3.txt
